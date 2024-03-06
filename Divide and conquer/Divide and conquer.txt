@@ -1,0 +1,4 @@
+Algorithms In This Folder:
+-Binary search
+-Quick sort
+-Merge sort

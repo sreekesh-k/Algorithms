@@ -1,0 +1,10 @@
+Algorithms In This Folder:
+SORTING:
+-Bubble sort
+-Selection sort
+-Insertion sort
+
+SEARCHING:
+-Linear search
+-Binary Searh
+-Interpolation search

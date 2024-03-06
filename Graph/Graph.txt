@@ -1,0 +1,7 @@
+Algorithms In This Folder:
+-Breadth First Search
+-Dept First Search
+-Krusakal's algorithm
+-Prim's algorith
+-Dijkstra's algorithm
+-All pair shortes path

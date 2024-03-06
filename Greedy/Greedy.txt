@@ -1,0 +1,4 @@
+Algorithms In This Folder:
+-Huffman coding
+-Activity selection
+-Longest common subsequence
