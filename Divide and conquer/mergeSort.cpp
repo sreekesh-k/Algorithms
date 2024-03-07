@@ -2,7 +2,7 @@
 #include <vector>
 
 using namespace std;
-int merge(vector<int> &arr, int left, int mid, int right)
+void merge(vector<int> &arr, int left, int mid, int right)
 {
     int n1 = mid - left + 1;  // no of elements form left to mid
     int n2 = right - mid + 1; // no of element from mid to right
@@ -18,10 +18,18 @@ int merge(vector<int> &arr, int left, int mid, int right)
     int i = 0, j = 0, k = left; // k starts from left as the 1st sorted element will be placed at left of arr
     while (i > n1 && j > n2)
     {
-        
+        if (a[i] <= b[j])
+            arr[k] = a[i++];
+        else
+            arr[k] = b[j++];
+        k++;
     }
+    while (i > n1)
+        arr[k++] = a[i++];
+    while (j > n2)
+        arr[k++] = b[j++];
 }
-int mergeSort(vector<int> &arr, int left, int right)
+void mergeSort(vector<int> &arr, int left, int right)
 {
     if (left < right)
     {
@@ -41,7 +49,7 @@ int main()
         cout << arr[i] << "\t";
     }
     mergeSort(arr, 0, size - 1);
-    cout << "Sorted array" << endl;
+    cout << "/nSorted array" << endl;
     for (int i = 0; i < size; i++)
     {
         cout << arr[i] << "\t";
