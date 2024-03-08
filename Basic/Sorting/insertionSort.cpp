@@ -1,22 +1,18 @@
 #include <iostream>
 using namespace std;
 
-void selectionSort(int arr[], int size)
+void insertionSort(int arr[], int size)
 {
-    for (int i = 0; i < size - 1; ++i)
+    for (int i = 1; i < size; ++i)
     {
-        int minIndex = i;
-        for (int j = i + 1; j < size; ++j)
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key)
         {
-            if (arr[j] < arr[minIndex])
-            {
-                minIndex = j;
-            }
+            arr[j + 1] = arr[j];
+            --j;
         }
-        // Swap arr[i] and arr[minIndex]
-        int temp = arr[i];
-        arr[i] = arr[minIndex];
-        arr[minIndex] = temp;
+        arr[j + 1] = key;
     }
 }
 
@@ -24,7 +20,7 @@ int main()
 {
     int arr[] = {64, 25, 12, 22, 11};
     int size = sizeof(arr) / sizeof(arr[0]);
-    selectionSort(arr, size);
+    insertionSort(arr, size);
     cout << "Sorted array: ";
     for (int i = 0; i < size; ++i)
     {
