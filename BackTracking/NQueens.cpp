@@ -2,80 +2,85 @@
 #include <vector>
 
 using namespace std;
-int N;
 
-void printBoard(vector<vector<int>> &board)
-{ // print board
-    for (int i = 0; i < N; i++)
+void printBoard(const vector<string> &board)
+{
+    for (const string &row : board)
     {
-        for (int j = 0; j < N; j++)
-        {
-            if (j < N - 1)
-                cout << "| " << board[i][j] << " ";
-            else
-                cout << "| " << board[i][j] << " |";
-        }
-        cout << endl;
+        cout << row << endl;
     }
     cout << endl;
 }
 
-bool isSafe(vector<vector<int>> &board, int row, int col)
-{ // can i place the queen here? on this row and this col
+bool isSafe(const vector<string> &board, int row, int col)
+{
+    int N = board.size();
 
-    // Check row
-    for (int i = 0; i < col; i++)
+    // Check column
+    for (int i = 0; i < row; i++)
     {
-        if (board[row][i] == 1)
+        if (board[i][col] == 'Q')
             return false;
     }
 
     // Check upper diagonal on left side
     for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
     {
-        if (board[i][j] == 1)
+        if (board[i][j] == 'Q')
             return false;
     }
 
-    // Check lower diagonal on left side
-    for (int i = row, j = col; i < N && j >= 0; i++, j--)
+    // Check upper diagonal on right side
+    for (int i = row, j = col; i >= 0 && j < N; i--, j++)
     {
-        if (board[i][j] == 1)
+        if (board[i][j] == 'Q')
             return false;
     }
 
     return true;
 }
 
-bool placeQueen(vector<vector<int>> &board, int col)
+void placeQueen(vector<string> &board, int row, vector<vector<string>> &solutions)
 {
-    if (col == N) // if all the queens are placed
-    {
-        printBoard(board); // on the final row it prints the soluton and goes back
-        return true;
-    }
-    bool solution = false;
+    int N = board.size();
 
-    // Try placing a queen in each row of the current column
-    for (int i = 0; i < N; i++)
+    if (row == N) // If all queens are placed
     {
-        if (isSafe(board, i, col))
+        solutions.push_back(board);
+        return;
+    }
+
+    for (int col = 0; col < N; col++)
+    {
+        if (isSafe(board, row, col))
         {
-            board[i][col] = 1; // Place the queen
-            solution = placeQueen(board, col + 1) || solution;
-            board[i][col] = 0; // backtrack and try again
+            board[row][col] = 'Q'; // Place the queen
+
+            placeQueen(board, row + 1, solutions); // Recur to place queens in the next row
+
+            board[row][col] = '.'; // Backtrack
         }
     }
-    return solution; // solution exists with the current placement or not
+}
+
+vector<vector<string>> solveNQueens(int n)
+{
+    vector<string> board(n, string(n, '.')); // Initialize empty board
+    vector<vector<string>> solutions;
+    placeQueen(board, 0, solutions);
+    return solutions;
 }
 
 int main()
 {
-    cout << "Enter the value of N: ";
-    cin >> N;
-    vector<vector<int>> board(N, vector<int>(N, 0));
-    if (!placeQueen(board, 0))
-        cout << "Solution does not exist";
+    int n = 4;
+    vector<vector<string>> solutions = solveNQueens(n);
+
+    cout << "Number of distinct solutions: " << solutions.size() << endl;
+    for (const auto &solution : solutions)
+    {
+        printBoard(solution);
+    }
 
     return 0;
 }
