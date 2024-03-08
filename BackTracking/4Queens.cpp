@@ -5,11 +5,11 @@ using namespace std;
 const int N = 4;
 
 void printBoard(vector<vector<int>> &board)
-{
+{ // print board
 }
 
 bool isSafe(vector<vector<int>> &board, int row, int col)
-{
+{ // can i place the queen here? on this row and this col
 
     return true;
 }
@@ -33,6 +33,7 @@ bool placeQueen(vector<vector<int>> &board, int col)
             board[i][col] = 0; // backtrack and try again
         }
     }
+    return solution; // solution exists with the current placement or not
 }
 
 int main()
